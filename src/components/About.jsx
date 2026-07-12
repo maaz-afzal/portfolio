@@ -42,16 +42,15 @@ export const About = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      className="py-24 md:py-32 relative overflow-hidden"
+      className="relative py-24 overflow-hidden md:py-32"
     >
-
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <div className="max-w-6xl px-6 mx-auto md:px-12">
+        <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
           <motion.div
             variants={itemVariants}
-            className="lg:w-1/2 flex flex-col items-start text-left"
+            className="flex flex-col items-start text-left lg:w-1/2"
           >
-            <span className="font-display font-extrabold text-xs sm:text-sm uppercase tracking-widest text-accent mb-2 block">
+            <span className="block mb-2 text-xs font-extrabold tracking-widest uppercase font-display sm:text-sm text-accent">
               ABOUT ME
             </span>
 
@@ -64,7 +63,7 @@ export const About = () => {
               ]}
             />
 
-            <div className="mt-6 space-y-4 font-sans text-textSecondary text-base sm:text-lg leading-relaxed">
+            <div className="mt-6 space-y-4 font-sans text-base leading-relaxed text-textSecondary sm:text-lg">
               <p>
                 I&apos;m Maaz, a BS Computer Science student and MERN Stack
                 Developer. I build web applications using React, Node.js,
@@ -77,7 +76,7 @@ export const About = () => {
               </p>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-border w-full">
+            <div className="w-full pt-6 mt-8 border-t border-border">
               <div className="flex flex-wrap items-center gap-3">
                 {stats.map((stat, index) => (
                   <motion.span
@@ -94,13 +93,13 @@ export const About = () => {
 
           <motion.div
             variants={itemVariants}
-            className="lg:w-1/2 flex justify-center"
+            className="flex justify-center lg:w-1/2"
           >
-            <div className="relative group w-full max-w-sm">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-accent via-accentAlt to-primary rounded-2xl opacity-40 blur-2xl group-hover:opacity-60 transition-opacity duration-500" />
-              <div className="relative bg-surface rounded-2xl border-2 border-primary overflow-hidden shadow-card">
+            <div className="relative w-full max-w-sm group">
+              <div className="absolute transition-opacity duration-500 -inset-4 bg-gradient-to-tr from-accent via-accentAlt to-primary rounded-2xl opacity-40 blur-2xl group-hover:opacity-60" />
+              <div className="relative overflow-hidden border-2 bg-surface rounded-2xl border-primary shadow-card">
                 <img
-                  src="/images/profile.jpg"
+                  src="images/profile.jpg"
                   alt="Maaz Afzal profile photo"
                   className="w-full h-auto aspect-[4/5] object-cover"
                 />

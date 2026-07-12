@@ -4,7 +4,7 @@ export const projectsData = [
     title: "Chattrix",
     description:
       "Full-stack real-time chat application with live messaging, online/offline presence, and last-seen tracking.",
-    image: "/images/projects/chattrix.png",
+    image: "images/projects/chattrix.png",
     techStack: ["React", "Node.js", "Express", "MongoDB", "Socket.IO"],
     githubUrl: "https://github.com/maaz-afzal/chattrix",
     liveUrl: "",
@@ -16,7 +16,7 @@ export const projectsData = [
     title: "Cartify",
     description:
       "Full-stack e-commerce platform with cart, auth, and product management, deployed on Vercel.",
-    image: "/images/projects/cartify.png",
+    image: "images/projects/cartify.png",
     techStack: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
     githubUrl: "https://github.com/maaz-afzal/cartify",
     liveUrl: "https://cartify-frontend-ten.vercel.app/",
@@ -27,7 +27,7 @@ export const projectsData = [
     id: 3,
     title: "Cartly",
     description: "A lightweight cart and commerce utility project.",
-    image: "/images/projects/cartly.png",
+    image: "images/projects/cartly.png",
     techStack: ["React", "Tailwind CSS", "DummyJson API"],
     githubUrl: "https://github.com/maaz-afzal/cartly",
     liveUrl: "https://cartly-zeta.vercel.app/",
@@ -39,7 +39,7 @@ export const projectsData = [
     title: "Recipe Finder App",
     description:
       "Search and discover recipes using a public recipes API with a clean, responsive UI.",
-    image: "/images/projects/recipe-finder.png",
+    image: "images/projects/recipe-finder.png",
     techStack: ["HTML", "CSS", "JavaScript", "MealDB API"],
     githubUrl: "https://github.com/maaz-afzal/recipe-finder-app",
     liveUrl: "https://maaz-afzal.github.io/recipe-finder-app/",
@@ -51,7 +51,7 @@ export const projectsData = [
     title: "Notes App",
     description:
       "A simple note-taking application with local storage support for saving notes.",
-    image: "/images/projects/notes-app.png",
+    image: "images/projects/notes-app.png",
     techStack: ["HTML", "CSS", "JavaScript"],
     githubUrl: "https://github.com/maaz-afzal/notes-app",
     liveUrl: "https://maaz-afzal.github.io/notes-app/",
@@ -63,7 +63,7 @@ export const projectsData = [
     title: "Music Player",
     description:
       "A web-based music player that allows users to play, pause, forward, and backward audio tracks with a sleek interface.",
-    image: "/images/projects/music-player.png",
+    image: "images/projects/music-player.png",
     techStack: ["HTML", "CSS", "JavaScript"],
     githubUrl: "https://github.com/maaz-afzal/music-player",
     liveUrl: "https://maaz-afzal.github.io/music-player",
