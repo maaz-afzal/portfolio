@@ -1,109 +1,101 @@
 import React from "react";
-import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaGitAlt } from "react-icons/fa";
-import { SiTailwindcss } from "react-icons/si";
-import FadeIn from "./FadeIn";
+import { motion } from "framer-motion";
+import * as SiIcons from "react-icons/si";
+import * as TbIcons from "react-icons/tb";
+import { skillsData } from "../data/skills";
 
-const Skills = () => {
-  const skills = [
-    {
-      name: "HTML",
-      level: 95,
-      desc: "Semantic structure for modern web pages",
-      icon: <FaHtml5 className="text-orange-500" />,
+export const Skills = () => {
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.34, 1.56, 0.64, 1],
+        staggerChildren: 0.1,
+      },
     },
-    {
-      name: "CSS",
-      level: 90,
-      desc: "Responsive layouts and clean UI styling",
-      icon: <FaCss3Alt className="text-blue-500" />,
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.85, y: 15 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: [0.34, 1.56, 0.64, 1] },
     },
-    {
-      name: "JavaScript",
-      level: 85,
-      desc: "Interactive and dynamic web functionality",
-      icon: <FaJs className="text-yellow-400" />,
-    },
-    {
-      name: "React",
-      level: 93,
-      desc: "Building scalable component-based UIs",
-      icon: <FaReact className="text-cyan-400" />,
-    },
-    {
-      name: "Tailwind CSS",
-      level: 90,
-      desc: "Utility-first styling for fast development",
-      icon: <SiTailwindcss className="text-sky-400" />,
-    },
-    {
-      name: "Git",
-      level: 88,
-      desc: "Version control and team collaboration",
-      icon: <FaGitAlt className="text-red-500" />,
-    },
-  ];
+  };
+
+  const renderIcon = (iconName, color) => {
+    const IconComponent =
+      SiIcons[iconName] || TbIcons[iconName] || SiIcons.SiJavascript;
+    return (
+      <IconComponent
+        className="w-8 h-8 sm:w-9 sm:h-9 transition-transform duration-300 group-hover:scale-110"
+        style={{ color }}
+      />
+    );
+  };
 
   return (
-    <section id="skills" className="py-26 px-6">
-      <FadeIn>
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <p className="text-purple-400 text-sm tracking-[3px] uppercase mb-3">
-              Skills
-            </p>
-            <h2 className="text-4xl font-medium text-white mb-3">
-              What I Know
-            </h2>
-          </div>
+    <motion.section
+      id="skills"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      className="bg-surfaceAlt py-24 md:py-32 relative overflow-hidden"
+    >
 
-          {/* Cards */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {skills.map((skill, index) => (
-              <div
-                key={index}
-                className="group relative p-6 rounded-2xl bg-white/5 border border-purple-500/10 hover:border-purple-400/40 transition duration-300 hover:-translate-y-2 overflow-hidden"
-              >
-                {/* Glow */}
-                <div className="absolute inset-0 bg-linear-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-
-                <div className="relative z-10 h-full flex flex-col justify-between">
-                  {/* Top */}
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-4">
-                        <div className="text-3xl">{skill.icon}</div>
-                        <h3 className="text-white font-semibold text-xl">
-                          {skill.name}
-                        </h3>
-                      </div>
-
-                      <span className="text-purple-400 text-sm font-medium">
-                        {skill.level}%
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-gray-400 text-sm leading-relaxed max-w-md">
-                      {skill.desc}
-                    </p>
-                  </div>
-
-                  {/* Progress */}
-                  <div className="mt-8 w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-linear-to-r from-purple-500 to-purple-400 rounded-full transition-all duration-700"
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="flex flex-col items-center text-center mb-16">
+          <span className="inline-block font-display font-extrabold text-xs sm:text-sm uppercase tracking-widest text-accent mb-3">
+            SKILLS
+          </span>
+          <h2 className="font-display font-extrabold text-3xl sm:text-5xl text-primary tracking-tight max-w-2xl">
+            Technologies I Work With
+          </h2>
+          <p className="font-sans text-textSecondary text-base sm:text-lg mt-4 max-w-xl">
+            Tools and technologies I use to build amazing digital experiences
+          </p>
         </div>
-      </FadeIn>
-    </section>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skillsData.map((group, groupIndex) => (
+            <motion.div
+              key={group.category}
+              variants={cardVariants}
+              className="bg-surface border-2 border-primary rounded-3xl p-8 shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-[1.02]"
+            >
+              <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-primary/20">
+                <div className="w-1 h-8 bg-accent rounded-full" />
+                <h3 className="font-display font-extrabold text-xl sm:text-2xl text-primary">
+                  {group.category}
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {group.items.map((skill) => (
+                  <motion.div
+                    key={skill.name}
+                    whileHover={{ scale: 1.05, y: -3 }}
+                    className="group flex flex-col items-center gap-2 p-3 rounded-xl bg-background/50 border border-border hover:border-accent/40 transition-all duration-200"
+                  >
+                    <div className="p-2 rounded-xl bg-surface/50 group-hover:bg-accent/10 transition-colors">
+                      {renderIcon(skill.iconName, skill.color)}
+                    </div>
+                    <span className="font-display font-semibold text-xs sm:text-sm text-primary text-center leading-tight">
+                      {skill.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.section>
   );
 };
-
-export default Skills;

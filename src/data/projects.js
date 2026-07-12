@@ -1,57 +1,73 @@
-import recipeFinder from "../assets/recipe-finder.png";
-import notesApp from "../assets/notes-app.png";
-import productPage from "../assets/product-page.png";
-import weatherApp from "../assets/weather-app.png";
-import todoApp from "../assets/todo-app.png";
-import musicPlayer from "../assets/music-player.png";
-
-export const projects = [
+export const projectsData = [
   {
-    title: "Recipe Finder",
-    image: recipeFinder,
-    desc: "A React app to search and explore recipes using TheMealDB API with favorites and custom hooks.",
-    tags: ["React", "Tailwind CSS", "API", "Context API"],
-    github: "https://github.com/maaz-afzal/recipe-finder",
-    live: "https://maaz-afzal.github.io/recipe-finder-app",
+    id: 1,
+    title: "Chattrix",
+    description:
+      "Full-stack real-time chat application with live messaging, online/offline presence, and last-seen tracking.",
+    image: "/images/projects/chattrix.png",
+    techStack: ["React", "Node.js", "Express", "MongoDB", "Socket.IO"],
+    githubUrl: "https://github.com/maaz-afzal/chattrix",
+    liveUrl: "",
+    liveStatus: "Coming Soon",
+    featured: true,
   },
   {
+    id: 2,
+    title: "Cartify",
+    description:
+      "Full-stack e-commerce platform with cart, auth, and product management, deployed on Vercel.",
+    image: "/images/projects/cartify.png",
+    techStack: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    githubUrl: "https://github.com/maaz-afzal/cartify",
+    liveUrl: "https://cartify-frontend-ten.vercel.app/",
+    liveStatus: "Live Demo",
+    featured: true,
+  },
+  {
+    id: 3,
+    title: "Cartly",
+    description: "A lightweight cart and commerce utility project.",
+    image: "/images/projects/cartly.png",
+    techStack: ["React", "Tailwind CSS", "DummyJson API"],
+    githubUrl: "https://github.com/maaz-afzal/cartly",
+    liveUrl: "https://cartly-zeta.vercel.app/",
+    liveStatus: "Live Demo",
+    featured: false,
+  },
+  {
+    id: 4,
+    title: "Recipe Finder App",
+    description:
+      "Search and discover recipes using a public recipes API with a clean, responsive UI.",
+    image: "/images/projects/recipe-finder.png",
+    techStack: ["HTML", "CSS", "JavaScript", "MealDB API"],
+    githubUrl: "https://github.com/maaz-afzal/recipe-finder-app",
+    liveUrl: "https://maaz-afzal.github.io/recipe-finder-app/",
+    liveStatus: "Live Demo",
+    featured: false,
+  },
+  {
+    id: 5,
     title: "Notes App",
-    image: notesApp,
-    desc: "A full-featured notes app with add, edit, delete, search, and dark/light mode support.",
-    tags: ["React", "Tailwind CSS", "Vite"],
-    github: "https://github.com/maaz-afzal/notes-app",
-    live: "https://maaz-afzal.github.io/notes-app",
+    description:
+      "A simple note-taking application with local storage support for saving notes.",
+    image: "/images/projects/notes-app.png",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    githubUrl: "https://github.com/maaz-afzal/notes-app",
+    liveUrl: "https://maaz-afzal.github.io/notes-app/",
+    liveStatus: "Live Demo",
+    featured: false,
   },
   {
-    title: "Product Page",
-    image: productPage,
-    desc: "A responsive e-commerce product page with clean UI and smooth interactions.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    github: "https://github.com/maaz-afzal/product-page",
-    live: "https://maaz-afzal.github.io/product-page",
-  },
-  {
-    title: "Weather App",
-    image: weatherApp,
-    desc: "A weather app that fetches real-time data based on city search using a weather API.",
-    tags: ["HTML", "CSS", "JavaScript", "API"],
-    github: "https://github.com/maaz-afzal/weather-app",
-    live: "https://maaz-afzal.github.io/weather-app",
-  },
-  {
-    title: "Todo App",
-    image: todoApp,
-    desc: "A clean todo app with add, complete, and delete functionality.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    github: "https://github.com/maaz-afzal/todo-app",
-    live: "https://maaz-afzal.github.io/todo-app",
-  },
-  {
+    id: 6,
     title: "Music Player",
-    image: musicPlayer,
-    desc: "A browser-based music player with play, pause, and track navigation controls.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    github: "https://github.com/maaz-afzal/music-player",
-    live: "https://maaz-afzal.github.io/music-player",
+    description:
+      "A web-based music player that allows users to play, pause, forward, and backward audio tracks with a sleek interface.",
+    image: "/images/projects/music-player.png",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    githubUrl: "https://github.com/maaz-afzal/music-player",
+    liveUrl: "https://maaz-afzal.github.io/music-player",
+    liveStatus: "Live Demo",
+    featured: false,
   },
 ];

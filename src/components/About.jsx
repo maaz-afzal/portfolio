@@ -1,92 +1,119 @@
-import profile from "../assets/image.png";
-import FadeIn from "./FadeIn";
+import React from "react";
+import { motion } from "framer-motion";
+import { TypingText } from "./TypingText";
 
-const About = () => {
+export const About = () => {
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.34, 1.56, 0.64, 1],
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+  };
+
+  const stats = [
+    { label: "3+ Years Experience", bg: "bg-accent text-[#0F0F1A]" },
+    { label: "6+ Projects Shipped", bg: "bg-accentAlt text-white" },
+    { label: "MERN Stack", bg: "bg-primary text-[#0F0F1A]" },
+    {
+      label: "UET Peshawar",
+      bg: "bg-surface text-primary border-2 border-primary",
+    },
+  ];
+
   return (
-    <section id="about" className="py-24 px-6">
-      <FadeIn>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          {/* Image */}
-          <div className="relative group w-fit mx-auto">
-            <div className="absolute inset-0 rounded-2xl bg-purple-500/20 blur-2xl opacity-70 group-hover:opacity-100 transition duration-500"></div>
+    <motion.section
+      id="about"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      className="py-24 md:py-32 relative overflow-hidden"
+    >
 
-            <img
-              src={profile}
-              alt="Maaz Afzal"
-              className="relative w-100 h-130 object-cover rounded-2xl border border-purple-500/30 shadow-xl hover:scale-103 transition duration-500"
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <motion.div
+            variants={itemVariants}
+            className="lg:w-1/2 flex flex-col items-start text-left"
+          >
+            <span className="font-display font-extrabold text-xs sm:text-sm uppercase tracking-widest text-accent mb-2 block">
+              ABOUT ME
+            </span>
+
+            <TypingText
+              phrases={[
+                "MERN Stack Developer",
+                "Full-Stack Developer",
+                "Front-end Developer",
+                "Back-end Developer",
+              ]}
             />
-          </div>
 
-          {/* Content */}
-          <div>
-            <p className="text-purple-400 text-sm tracking-[0.3em] uppercase mb-2">
-              About Me
-            </p>
-
-            {/* Top Heading */}
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Frontend Web Developer
-            </h2>
-
-            <p className="text-gray-400 text-lg leading-relaxed mb-6 text-justify">
-              Hey, I'm Maaz a frontend developer living in Pakistan. I enjoy
-              building clean, responsive websites that feel smooth and easy to
-              use.
-            </p>
-
-            <p className="text-gray-400 text-lg leading-relaxed mb-6 text-justify">
-              I mainly work with React and love turning ideas into real, working
-              products. For me, it’s not just about design it’s about creating
-              experiences people actually enjoy.
-            </p>
-
-            <p className="text-gray-400 text-lg leading-relaxed mb-8 text-justify">
-              Right now, I’m learning backend development with Node.js to become
-              a full-stack developer.
-            </p>
-
-            {/* Stats */}
-            <div className="flex flex-wrap gap-6">
-              <div className="flex-1 min-w-37.5 bg-white/5 border border-purple-500/20 rounded-xl p-6 text-center hover:bg-purple-500/10 transition hover:scale-102">
-                <h3 className="text-3xl font-bold text-purple-400">2+</h3>
-                <p className="text-gray-400 text-sm uppercase">
-                  Years Experience
-                </p>
-              </div>
-
-              <div className="flex-1 min-w-37.5 bg-white/5 border border-purple-500/20 rounded-xl p-6 text-center hover:bg-purple-500/10 transition hover:s">
-                <h3 className="text-3xl font-bold text-purple-400">10+</h3>
-                <p className="text-gray-400 text-sm uppercase">
-                  Projects Completed
-                </p>
-              </div>
+            <div className="mt-6 space-y-4 font-sans text-textSecondary text-base sm:text-lg leading-relaxed">
+              <p>
+                I&apos;m Maaz, a BS Computer Science student and MERN Stack
+                Developer. I build web applications using React, Node.js,
+                Express, and MongoDB.
+              </p>
+              <p>
+                I like creating useful projects, learning new technologies, and
+                improving my development skills. I enjoy working on full-stack
+                applications and turning ideas into real products.
+              </p>
             </div>
 
-            {/* Buttons */}
-            <div className="flex flex-wrap gap-4 mt-6">
-              <a
-                href="https://github.com/maaz-afzal"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-purple-500 text-white px-6 py-2 rounded-full text-sm hover:bg-purple-600 transition"
-              >
-                View GitHub
-              </a>
-
-              <a
-                href="https://linkedin.com/in/maazafzalkhan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border border-purple-500/40 text-purple-400 px-6 py-2 rounded-full text-sm hover:bg-purple-500/10 transition"
-              >
-                LinkedIn
-              </a>
+            <div className="mt-8 pt-6 border-t border-border w-full">
+              <div className="flex flex-wrap items-center gap-3">
+                {stats.map((stat, index) => (
+                  <motion.span
+                    key={index}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className={`px-4 py-2 rounded-full font-display font-bold text-sm shadow-pill whitespace-nowrap ${stat.bg}`}
+                  >
+                    {stat.label}
+                  </motion.span>
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
+
+          <motion.div
+            variants={itemVariants}
+            className="lg:w-1/2 flex justify-center"
+          >
+            <div className="relative group w-full max-w-sm">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-accent via-accentAlt to-primary rounded-2xl opacity-40 blur-2xl group-hover:opacity-60 transition-opacity duration-500" />
+              <div className="relative bg-surface rounded-2xl border-2 border-primary overflow-hidden shadow-card">
+                <img
+                  src="/images/profile.jpg"
+                  alt="Maaz Afzal profile photo"
+                  className="w-full h-auto aspect-[4/5] object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-3 -right-3 bg-accent rounded-full px-3 py-1.5 shadow-card border-2 border-primary">
+                <span className="font-display font-extrabold text-[10px] text-[#0F0F1A]">
+                  MERN Stack
+                </span>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </FadeIn>
-    </section>
+      </div>
+    </motion.section>
   );
 };
-
-export default About;

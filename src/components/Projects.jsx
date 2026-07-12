@@ -1,86 +1,81 @@
-import { projects } from "../data/projects";
-import FadeIn from "./FadeIn";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { SiGithub } from 'react-icons/si';
+import { HiOutlineExternalLink } from 'react-icons/hi';
+import { projectsData } from '../data/projects';
+import { ProjectCard } from './ProjectCard';
 
-const Projects = () => {
+export const Projects = () => {
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.34, 1.56, 0.64, 1],
+        staggerChildren: 0.15
+      }
+    }
+  };
+
   return (
-    <section id="projects" className="py-28 px-6">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-purple-400 text-xs tracking-[3px] uppercase mb-3">
-            My Work
-          </p>
-          <h2 className="text-4xl font-medium text-white mb-3">Projects</h2>
-          <p className="text-gray-500 text-sm">Things I've built so far</p>
+    <motion.section
+      id="work"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      className="py-24 md:py-32 relative overflow-hidden"
+    >
+
+      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="flex flex-col items-center text-center mb-16">
+          <span className="font-display font-extrabold text-xs sm:text-sm uppercase tracking-widest text-accent mb-2 block">
+            MY WORK
+          </span>
+          <h2 className="font-display font-extrabold text-3xl sm:text-5xl text-primary tracking-tight">
+            Projects I've Built
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-accent to-accentAlt rounded-full mt-4" />
         </div>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <FadeIn key={index} delay={index * 0.1}>
-              <div className="group flex flex-col h-full bg-purple-500/5 border border-purple-500/15 hover:border-purple-500/40 rounded-2xl overflow-hidden transition duration-300 hover:-translate-y-1">
-                {/* Image - flex-shrink-0 add kiya */}
-                <div className="overflow-hidden h-44 bg-gray-900 shrink-0">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-col justify-between flex-1 p-5 min-h-0">
-                  <div className="flex-1">
-                    {" "}
-                    <h3 className="text-white font-medium text-lg mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                      {project.desc}
-                    </p>
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-5">
-                      {project.tags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className="text-xs text-purple-400 border border-purple-500/25 rounded-full px-3 py-0.5"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Links */}
-                  <div className="flex gap-3 mt-auto">
-                    {" "}
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-purple-400 border border-purple-500/30 rounded-full px-4 py-1.5 hover:bg-purple-500/10 transition duration-300"
-                    >
-                      GitHub
-                    </a>
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-white bg-purple-600 hover:bg-purple-700 rounded-full px-4 py-1.5 transition duration-300"
-                      >
-                        Live Demo
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {projectsData.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className={project.featured ? 'md:col-span-2' : 'md:col-span-1'}
+            >
+              <ProjectCard project={project} />
+            </motion.div>
           ))}
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-14 text-center"
+        >
+          <div className="inline-flex items-center gap-4 bg-surface border-2 border-primary rounded-full px-6 py-3 shadow-card">
+            <span className="font-sans text-sm text-textSecondary">Want to see more?</span>
+            <a
+              href="https://github.com/maaz-afzal?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-accent text-[#0F0F1A] px-6 py-2 font-display font-bold text-sm border-2 border-primary hover:scale-105 transition-all duration-200"
+            >
+              <SiGithub className="w-4 h-4" />
+              <span>View All Projects</span>
+              <HiOutlineExternalLink className="w-4 h-4" />
+            </a>
+          </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
-
-export default Projects;

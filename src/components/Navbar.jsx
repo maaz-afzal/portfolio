@@ -1,82 +1,226 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { HiOutlineMenuAlt4, HiOutlineX } from "react-icons/hi";
+import { SiGithub } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: "About", id: "about" },
+    { name: "Skills", id: "skills" },
+    { name: "Work", id: "work" },
+    { name: "Education", id: "education" },
+    { name: "Contact", id: "contact" },
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+
+      const sections = ["about", "skills", "work", "education", "contact"];
+      const scrollPosition = window.scrollY + 250;
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (id) => {
+    setMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(id);
+    }
+  };
 
   return (
-    <nav className="fixed w-full top-0 left-0 z-50 flex justify-center px-6 pt-4">
-      <div className="w-full max-w-6xl">
-        {/* Main Bar */}
-        <div className="flex justify-between items-center bg-gray-900/85 border border-purple-500/30 rounded-full px-8 py-3.5 backdrop-blur-md shadow-[0_0_24px_rgba(139,92,246,0.12)]">
-          {/* Logo */}
-          <a href="#home">
-            <span className="text-2xl cursor-pointer font-medium text-white tracking-widest hover:text-purple-400 transition-colors duration-300">
-              MAAZ AFZAL
-            </span>
-          </a>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-2xl border-b border-border/50 py-3 shadow-lg"
+          : "bg-transparent py-6"
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="group flex items-center gap-2 font-display font-extrabold text-2xl md:text-3xl text-primary tracking-tight flex-shrink-0"
+        >
+          <span className="text-accent">$</span>
+          <span className="relative">
+            <span className="text-primary">maaz</span>
+            <motion.span
+              className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-accent"
+              initial={{ scaleX: 0 }}
+              whileHover={{ scaleX: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+          </span>
+        </a>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex gap-9">
-            {["Home", "About", "Skills", "Projects"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="relative text-md font-medium text-gray-400 pb-1 hover:text-purple-400 transition-colors duration-300 group"
+        <nav className="hidden lg:flex items-center justify-center absolute left-1/2 -translate-x-1/2 gap-1 bg-surfaceAlt/50 border border-border/50 rounded-full px-1 py-1 shadow-sm">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`relative px-4 py-2 rounded-full font-display font-medium text-sm transition-all duration-300 cursor-pointer ${
+                  isActive
+                    ? "text-primary bg-accent/10 border border-accent/20"
+                    : "text-textSecondary hover:text-primary hover:bg-surfaceAlt/50"
+                }`}
               >
-                {item}
-                <span className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-purple-400 transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
-          </div>
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavPill"
+                    className="absolute inset-0 bg-accent/10 border border-accent/20 rounded-full"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{item.name}</span>
+              </button>
+            );
+          })}
+        </nav>
 
-          {/* Desktop Contact Button */}
-          <a href="#contact" className="hidden md:block">
-            <button className="text-md text-purple-400 border border-purple-700 rounded-full px-5 py-2 hover:bg-purple-700 hover:text-white transition-all duration-300 font-medium cursor-pointer">
-              Contact Us
-            </button>
-          </a>
-
-          {/* Hamburger Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
+        {/* Right Side - Social Icons & Resume */}
+        <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+          <a
+            href="https://github.com/maaz-afzal"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-full text-textSecondary hover:text-primary hover:bg-surfaceAlt border border-border transition-all duration-200"
           >
-            <span
-              className={`block h-0.5 w-6 bg-purple-400 transition-all duration-300 ${isOpen ? "rotate-45 translate-y-2" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-6 bg-purple-400 transition-all duration-300 ${isOpen ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-6 bg-purple-400 transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-2" : ""}`}
-            />
-          </button>
+            <SiGithub className="w-5 h-5" />
+          </a>
+          <a
+            href="https://linkedin.com/in/maazafzalkhan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-full text-textSecondary hover:text-[#0A66C2] hover:bg-surfaceAlt border border-border transition-all duration-200"
+          >
+            <FaLinkedin className="w-5 h-5" />
+          </a>
+          <div className="w-px h-8 bg-border" />
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-accent text-[#0F0F1A] px-5 py-2.5 font-display font-bold text-sm border-2 border-primary shadow-pill hover:shadow-card-hover hover:scale-105 transition-all duration-200 cursor-pointer"
+          >
+            Resume
+          </a>
         </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden mt-2 bg-gray-900/95 border border-purple-500/20 rounded-2xl px-6 py-5 backdrop-blur-md flex flex-col gap-4">
-            {["Home", "About", "Skills", "Projects"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-purple-400 transition-colors duration-300 text-sm font-medium"
-              >
-                {item}
-              </a>
-            ))}
-
-            <a href="#contact" onClick={() => setIsOpen(false)}>
-              <button className="w-full text-sm text-purple-400 border border-purple-700 rounded-full px-5 py-2 hover:bg-purple-700 hover:text-white transition-all duration-300 font-medium cursor-pointer">
-                Contact Us
-              </button>
-            </a>
-          </div>
-        )}
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="lg:hidden p-2 text-primary focus:outline-none cursor-pointer hover:bg-surfaceAlt rounded-lg transition-colors"
+          aria-label="Toggle mobile menu"
+        >
+          {mobileMenuOpen ? (
+            <HiOutlineX className="w-7 h-7" />
+          ) : (
+            <HiOutlineMenuAlt4 className="w-7 h-7" />
+          )}
+        </button>
       </div>
-    </nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+            className="lg:hidden absolute top-full left-0 right-0 mx-4 mt-2 bg-surface border-2 border-primary rounded-3xl shadow-card overflow-hidden"
+          >
+            <div className="p-4">
+              <nav className="flex flex-col space-y-1">
+                {navItems.map((item, index) => (
+                  <motion.button
+                    key={item.id}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl font-display font-semibold text-base transition-all duration-200 ${
+                      activeSection === item.id
+                        ? "bg-accent/10 border border-accent/20 text-accent"
+                        : "text-primary hover:bg-surfaceAlt/50"
+                    }`}
+                  >
+                    <span>{item.name}</span>
+                    {activeSection === item.id && (
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="w-2 h-2 rounded-full bg-accent"
+                      />
+                    )}
+                  </motion.button>
+                ))}
+              </nav>
+
+              <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://github.com/maaz-afzal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-full bg-surfaceAlt border border-border text-textSecondary hover:text-primary transition-colors"
+                  >
+                    <SiGithub className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/maazafzalkhan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-full bg-surfaceAlt border border-border text-textSecondary hover:text-[#0A66C2] transition-colors"
+                  >
+                    <FaLinkedin className="w-5 h-5" />
+                  </a>
+                </div>
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-accent text-[#0F0F1A] px-5 py-2.5 font-display font-bold text-sm border-2 border-primary shadow-pill"
+                >
+                  Resume
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 };
-
-export default Navbar;
